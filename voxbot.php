@@ -1,5 +1,4 @@
 //<?php
-// Prevent PHP from stopping the script after 30 sec
 set_time_limit(0);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
@@ -11,7 +10,7 @@ $nick = "voxbot";
 $broadcaster = "puregoldenboy";
 $broadcasternick = "PGB";
 
-$version = "1.0";
+$version = "0.1";
 $welcome = "Voxbot v".$version." is now moderating this channel. Contact Voxletum on league for assistance.";
 
 //
