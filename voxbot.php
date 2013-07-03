@@ -1,4 +1,5 @@
 //<?php
+// Prevent PHP from stopping the script after 30 sec
 set_time_limit(0);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
@@ -10,7 +11,7 @@ $nick = "voxbot";
 $broadcaster = "puregoldenboy";
 $broadcasternick = "PGB";
 
-$version = "0.1";
+$version = "1.0";
 $welcome = "Voxbot v".$version." is now moderating this channel. Contact Voxletum on league for assistance.";
 
 //
@@ -22,15 +23,13 @@ function printlog($info)
 function permission_list()
 	{
 		$permitted = array();
-		$left = "";
-		$right = "";
 		$contents = file_get_contents("db/permitted.txt");
 		$contents = explode("\n", $contents);
 		foreach($contents as $value)
 		{
 			$timestamp = trim(substr($value, strpos($value, "::")+2));
 			$name = trim(substr($value, 0, -12));
-			if(time() < ($timestamp+35))
+			if(time() < ($timestamp+37))
 			{
 				array_push($permitted, $name);
 			}
@@ -104,7 +103,7 @@ while(1) {
 			fputs($socket, "PRIVMSG ".$channel." :I don't have a roulette game yet, Sorry! \n");
 		}
 		elseif ($rawcmd[1] == "!permit") {
-			fputs($socket, "PRIVMSG ".$channel." :".trim($args).", You are now permitted to post a link for 30 seconds! \n");
+			fputs($socket, "PRIVMSG ".$channel." :".ucfirst(trim($args)).", You are now permitted to post a link for 30 seconds! \n");
 			printlog(">> added ".trim($args)." to permission list");
 			$handle = fopen("db/permitted.txt", "a");
 			fwrite($handle, strtolower(trim($args))."::".time()."\n");
